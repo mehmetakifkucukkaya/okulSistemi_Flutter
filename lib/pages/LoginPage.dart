@@ -18,6 +18,10 @@ class LoginPage extends StatelessWidget {
     var sifreController = TextEditingController();
 
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.orangeAccent,
+        title: const Text('Login Page'),
+      ),
       backgroundColor: Colors.white,
       body: Center(
         child: SingleChildScrollView(

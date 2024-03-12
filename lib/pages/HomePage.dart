@@ -28,11 +28,10 @@ class HomePage extends StatelessWidget {
           return Icons.location_on_rounded;
         case 'message':
           return Icons.message;
-        case 'calendar_month':
+        case 'settings':
           return Icons.settings;
         default:
-          return Icons
-              .settings; // Varsayılan olarak bir hata ikonu döndürülebilir.
+          return Icons.error;
       }
     }
 
@@ -64,7 +63,8 @@ class HomePage extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: GestureDetector(
                       onTap: () {
-                        print("tıklandı ${item["title"]!}");
+                        print("tıklandı");
+                        Navigator.pushNamed(context, item["navigation"]!);
                       },
                       child: Card(
                         elevation: 8,
