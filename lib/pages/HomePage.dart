@@ -1,7 +1,6 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:okul_sistemi/constants/constants.dart';
 import 'package:okul_sistemi/widgets/drawer_tiles.dart';
 
@@ -127,7 +126,7 @@ class HomePage extends StatelessWidget {
             ),
             const DrawerTile(
               title: "Duyurular",
-              route: "LoginPage",
+              route: "AnnouncementPage",
             ),
             const DrawerTile(
               title: "Akademik Takvim",

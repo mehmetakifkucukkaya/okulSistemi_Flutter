@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:okul_sistemi/pages/AnnouncementPage.dart';
 import 'package:okul_sistemi/pages/HomePage.dart';
 import 'package:okul_sistemi/pages/LoginPage.dart';
 
@@ -20,6 +21,7 @@ class MyApp extends StatelessWidget {
         ),
         routes: {
           'LoginPage': (context) => const LoginPage(),
+          'AnnouncementPage': (context) => const AnnouncementPage(),
         },
         home: const HomePage());
   }
