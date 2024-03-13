@@ -1,6 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+import 'package:okul_sistemi/widgets/login_form.dart';
 
 //TODO: Validation işlemleri yapılacak
 
@@ -13,9 +14,6 @@ class LoginPage extends StatelessWidget {
 
     final ekranYuksekligi = ekranBilgisi.size.height;
     final ekranGenisligi = ekranBilgisi.size.width;
-
-    var kullaniciAdiController = TextEditingController();
-    var sifreController = TextEditingController();
 
     return Scaffold(
       appBar: AppBar(
@@ -35,72 +33,8 @@ class LoginPage extends StatelessWidget {
                   child: Image.asset("assets/Icon.png"),
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.all(ekranGenisligi / 40),
-                child: TextFormField(
-                  controller: kullaniciAdiController,
-                  decoration: const InputDecoration(
-                    hintText: "Kullanıcı Adı",
-                    filled: true,
-                    fillColor: Colors.white,
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(
-                      Radius.circular(10),
-                    )),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.all(ekranGenisligi / 40),
-                child: TextFormField(
-                  controller: sifreController,
-                  decoration: InputDecoration(
-                    suffix: GestureDetector(
-                      onTap: () {
-                        print("Görünür");
-                      },
-                      child: const Icon(
-                        Icons.visibility_outlined,
-                        color: Colors.black,
-                      ),
-                    ),
-                    hintText: "Şifre",
-                    filled: true,
-                    fillColor: Colors.white,
-                    border: const OutlineInputBorder(
-                        borderRadius: BorderRadius.all(
-                      Radius.circular(10),
-                    )),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.all(ekranYuksekligi / 50),
-                child: SizedBox(
-                  height: ekranYuksekligi / 9,
-                  width: ekranGenisligi / 1.4,
-                  child: TextButton(
-                    onPressed: () {
-                      print("Giriş Yapıldı");
-                    },
-                    style: ButtonStyle(
-                      shape: MaterialStateProperty.all(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(6.0),
-                        ),
-                      ),
-                      backgroundColor:
-                          MaterialStateProperty.all(Colors.grey),
-                    ),
-                    child: Text(
-                      "Giriş Yap",
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: ekranGenisligi / 26),
-                    ),
-                  ),
-                ),
-              ),
+              const LoginForm(),
+              
             ],
           ),
         ),
