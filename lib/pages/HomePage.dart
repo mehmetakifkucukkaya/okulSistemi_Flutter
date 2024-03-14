@@ -130,7 +130,7 @@ class HomePage extends StatelessWidget {
             ),
             const DrawerTile(
               title: "Akademik Takvim",
-              route: "LoginPage",
+              route: "CalendarPage",
             ),
             const DrawerTile(
               title: "Kampüslerimiz",

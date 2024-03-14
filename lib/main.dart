@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:okul_sistemi/pages/AnnouncementPage.dart';
+import 'package:okul_sistemi/pages/CalendarPage.dart';
 import 'package:okul_sistemi/pages/HomePage.dart';
 import 'package:okul_sistemi/pages/LoginPage.dart';
 
@@ -22,6 +23,10 @@ class MyApp extends StatelessWidget {
         routes: {
           'LoginPage': (context) => const LoginPage(),
           'AnnouncementPage': (context) => const AnnouncementPage(),
+          'CalendarPage': (context) => const CalendarPage(),
+          // 'Campuses': (context) => const CampusesPage(),
+          // 'RectorsMessage': (context) => const (),
+          // 'Settings': (context) => const Settings(),
         },
         home: const HomePage());
   }
