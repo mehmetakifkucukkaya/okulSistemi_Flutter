@@ -34,7 +34,6 @@ class LoginPage extends StatelessWidget {
                 ),
               ),
               const LoginForm(),
-              
             ],
           ),
         ),
