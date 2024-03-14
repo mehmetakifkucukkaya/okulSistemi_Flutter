@@ -12,16 +12,16 @@ class Constants {
       "icon": "calendar_month"
     },
     {
-      "title": "Kampüslerimiz",
-      "navigation": "Campuses",
+      "title": "Yerleşkelerimiz",
+      "navigation": "CampusesPage",
       "icon": "location_on_rounded"
     },
-    {
-      "title": "Rektörün Mesajı",
-      "navigation": "RectorsMessage",
-      "icon": "message"
-    },
-    {"title": "Ayarlar", "navigation": "Settings", "icon": "settings"},
+    // {
+    //   "title": "Rektörün Mesajı",
+    //   "navigation": "RectorsMessage",
+    //   "icon": "message"
+    // },
+    // {"title": "Ayarlar", "navigation": "Settings", "icon": "settings"},
   ];
 
   //* Duyurular
@@ -75,6 +75,58 @@ class Constants {
       "title": "Açık Hava Konseri",
       "description":
           "Üniversitemiz bahçesinde açık hava konseri düzenlenecektir. Konserde yerel sanatçılar sahne alacak ve etkinlik ücretsiz olacaktır. Tüm öğrencilerimizi bekliyoruz."
+    }
+  ];
+
+  //* Yerleşkeler
+  List<Map<String, dynamic>> yerleskeler = [
+    {
+      "name": "Altunizade Yerleşkesi",
+      "coordinates": {
+        "latitude": "41.023239250379625",
+        "longitude": "29.046338622057686"
+      },
+      "img": "assets/altunizade.jpeg"
+    },
+    {
+      "name": "Kazlıçeşme Yerleşkesi",
+      "coordinates": {
+        "latitude": "40.99615098134945",
+        "longitude": "28.91605814927007"
+      },
+      "img": "assets/kazlicesme.jpg"
+    },
+    {
+      "name": "Balat Yerleşkesi",
+      "coordinates": {
+        "latitude": "41.03834532743723",
+        "longitude": "28.944639962118185"
+      },
+      "img": "assets/balat.jpg"
+    },
+    {
+      "name": "Şişli Yerleşkesi",
+      "coordinates": {
+        "latitude": "41.06427567558037",
+        "longitude": "28.978582635235448"
+      },
+      "img": "assets/sisli.png"
+    },
+    {
+      "name": "Yenibosna Yerleşkesi",
+      "coordinates": {
+        "latitude": "41.01338077065367",
+        "longitude": "28.820971134804523"
+      },
+      "img": "assets/yenibosna.jpg"
+    },
+    {
+      "name": "Levent TSYD Yerleşkesi",
+      "coordinates": {
+        "latitude": "41.08067910200317",
+        "longitude": "29.020304966576905"
+      },
+      "img": "assets/levent.jpg"
     }
   ];
 
@@ -947,56 +999,5 @@ class Constants {
         },
       ],
     },
-  ];
-
-  var yerleskeler = [
-    {
-      "name": "Altunizade Yerleşkesi",
-      "coordinates": {
-        "latitude": "41.023239250379625",
-        "longitude": "29.046338622057686"
-      },
-      "img": "assets/atunizade.jpeg"
-    },
-    {
-      "name": "Kazlıçeşme Yerleşkesi",
-      "coordinates": {
-        "latitude": "40.99615098134945",
-        "longitude": "28.91605814927007"
-      },
-      "img": "assets/kazlicesme.jpg"
-    },
-    {
-      "name": "Balat Yerleşkesi",
-      "coordinates": {
-        "latitude": "41.03834532743723",
-        "longitude": "28.944639962118185"
-      },
-      "img": "assets/balat.jpg"
-    },
-    {
-      "name": "Şişli Yerleşkesi",
-      "coordinates": {
-        "latitude": "41.06427567558037",
-        "longitude": "28.978582635235448"
-      },
-      "img": "assets/sisli.png"
-    },
-    {
-      "name": "Yenibosna Yerleşkesi",
-      "coordinates": {
-        "latitude": "41.01338077065367",
-        "longitude": "28.820971134804523"
-      },
-      "img": "assets/yenibosna.jpg"
-    },
-    {
-      "name": "Levent TSYD Yerleşkesi",
-      "coordinates": {
-        "latitude": "41.08067910200317",
-        "longitude": "29.020304966576905"
-      },
-      "img": "assets/levent.jpg"
-    }
   ];
 }
