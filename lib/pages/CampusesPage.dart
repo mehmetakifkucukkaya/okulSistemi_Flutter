@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:okul_sistemi/constants/constants.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class CampusesPage extends StatelessWidget {
   const CampusesPage({super.key});
@@ -52,7 +53,7 @@ class CampusesPage extends StatelessWidget {
     );
   }
 
-//* Modal'ı oluşturan metot
+  //* Modal'ı oluşturan metot
   void _showCampusDetails(
       BuildContext context, Map<String, dynamic> campus) {
     showModalBottomSheet(
@@ -74,25 +75,33 @@ class CampusesPage extends StatelessWidget {
                   ),
                 ),
                 const Divider(),
-                Image.asset(
-                  campus['img'],
-                  fit: BoxFit.cover,
-                  height: 200,
-                ),
-                const SizedBox(height: 10),
                 const Text(
-                  'Koordinatlar:',
+                  'Konum:',
                   style:
                       TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 5),
-                Text(
-                  'Enlem: ${campus["coordinates"]["latitude"]}',
-                  style: const TextStyle(fontSize: 16),
-                ),
-                Text(
-                  'Boylam: ${campus["coordinates"]["longitude"]}',
-                  style: const TextStyle(fontSize: 16),
+                // Google Maps widget'ını burada kullanın
+                SizedBox(
+                  height: 200,
+                  child: GoogleMap(
+                    initialCameraPosition: CameraPosition(
+                      target: LatLng(
+                        double.parse(campus["coordinates"]["latitude"]),
+                        double.parse(campus["coordinates"]["longitude"]),
+                      ),
+                      zoom: 15,
+                    ),
+                    markers: {
+                      Marker(
+                        markerId: MarkerId(campus['name']),
+                        position: LatLng(
+                          double.parse(campus["coordinates"]["latitude"]),
+                          double.parse(campus["coordinates"]["longitude"]),
+                        ),
+                      ),
+                    },
+                  ),
                 ),
               ],
             ),
