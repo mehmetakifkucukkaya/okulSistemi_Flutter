@@ -9,32 +9,12 @@ class SplashPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var data = Constants().homepageCardItems;
+    var data = Constants().splashpageCardItems;
 
     var ekranBilgisi = MediaQuery.of(context);
 
     final ekranYuksekligi = ekranBilgisi.size.height;
     final ekranGenisligi = ekranBilgisi.size.width;
-
-//* Iconları belirleyen metot
-    IconData getIconData(String iconName) {
-      switch (iconName) {
-        case 'login':
-          return Icons.login;
-        case 'calendar_month':
-          return Icons.calendar_month_rounded;
-        case 'announcement_rounded':
-          return Icons.announcement_rounded;
-        case 'location_on_rounded':
-          return Icons.location_on_rounded;
-        case 'message':
-          return Icons.message;
-        case 'settings':
-          return Icons.settings;
-        default:
-          return Icons.error;
-      }
-    }
 
     return Scaffold(
       appBar: AppBar(
@@ -57,7 +37,7 @@ class SplashPage extends StatelessWidget {
               gridDelegate:
                   const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2, childAspectRatio: 3 / 2),
-              itemCount: Constants().homepageCardItems.length,
+              itemCount: Constants().splashpageCardItems.length,
               itemBuilder: (context, index) {
                 final item = data[index];
                 return Padding(
@@ -85,7 +65,7 @@ class SplashPage extends StatelessWidget {
                           ),
                           Icon(
                             size: 26,
-                            getIconData(
+                            Constants.getIconData(
                               item["icon"]!,
                             ),
                           ),

@@ -1,5 +1,7 @@
+import 'package:flutter/material.dart';
+
 class Constants {
-  var homepageCardItems = [
+  var splashpageCardItems = [
     {"title": "Giriş Yap", "navigation": "LoginPage", "icon": "login"},
     {
       "title": "Duyurular",
@@ -23,6 +25,78 @@ class Constants {
     // },
     // {"title": "Ayarlar", "navigation": "Settings", "icon": "settings"},
   ];
+
+  var homepageCardItems = [
+    {"title": "Notlar", "navigation": "NotesPage", "icon": "notes"},
+    {
+      "title": "Projeler",
+      "navigation": "ProjectsPage",
+      "icon": "projects"
+    },
+    {"title": "Ödevler", "navigation": "NotesPage", "icon": "home_work"},
+    {
+      "title": "Ders Programı",
+      "navigation": "SyllabusPage",
+      "icon": "syllabus"
+    },
+    {
+      "title": "Duyurular",
+      "navigation": "AnnouncementPage",
+      "icon": "announcement_rounded"
+    },
+    {
+      "title": "Akademik Takvim",
+      "navigation": "CalendarPage",
+      "icon": "calendar_month"
+    },
+    {
+      "title": "Yerleşkelerimiz",
+      "navigation": "CampusesPage",
+      "icon": "location_on_rounded"
+    },
+    // {
+    //   "title": "Rektörün Mesajı",
+    //   "navigation": "RectorsMessage",
+    //   "icon": "message"
+    // },
+    // {"title": "Ayarlar", "navigation": "Settings", "icon": "settings"},
+  ];
+
+  var users = [
+    {
+      "name": "Mehmet Akif Küçükkaya",
+      "class": "3",
+      "section": "Yazılım Mühendisliği"
+    },
+  ];
+
+  //* Iconları belirleyen metot
+  static IconData getIconData(String iconName) {
+    switch (iconName) {
+      case 'login':
+        return Icons.login;
+      case 'logout':
+        return Icons.logout;
+      case 'calendar_month':
+        return Icons.calendar_month_rounded;
+      case 'announcement_rounded':
+        return Icons.announcement_rounded;
+      case 'location_on_rounded':
+        return Icons.location_on_rounded;
+      case 'message':
+        return Icons.message;
+      case 'settings':
+        return Icons.settings;
+      case 'notes':
+        return Icons.library_books_rounded;
+      case 'projects':
+        return Icons.computer_rounded;
+      case 'syllabus':
+        return Icons.list_alt;
+      default:
+        return Icons.error;
+    }
+  }
 
   //* Duyurular
   var announcements = [
