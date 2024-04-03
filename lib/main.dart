@@ -3,6 +3,7 @@ import 'package:okul_sistemi/pages/AnnouncementPage.dart';
 import 'package:okul_sistemi/pages/CalendarPage.dart';
 import 'package:okul_sistemi/pages/CampusesPage.dart';
 import 'package:okul_sistemi/pages/HomePage.dart';
+import 'package:okul_sistemi/pages/SplashPage.dart';
 import 'package:okul_sistemi/pages/LoginPage.dart';
 
 void main() {
