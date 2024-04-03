@@ -1,6 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+import 'package:okul_sistemi/constants/constants.dart';
 import 'package:okul_sistemi/widgets/drawer_tiles.dart';
 
 class HomePage extends StatefulWidget {
@@ -13,18 +14,71 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+    var data = Constants().homepageCardItems;
+    var user = Constants().users;
+
+    var ekranBilgisi = MediaQuery.of(context);
+
+    // final ekranYuksekligi = ekranBilgisi.size.height;
+    final ekranGenisligi = ekranBilgisi.size.width;
+
     return Scaffold(
       appBar: AppBar(
-        title: const Center(
-          child: Text('Ana Sayfa'),
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: Center(
+          child: Text(
+            user[0]["name"]!,
+            style:
+                const TextStyle(fontSize: 26, fontWeight: FontWeight.w600),
+          ),
         ),
       ),
-      body: const Center(
+      body: SingleChildScrollView(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'Ana Sayfa',
+          children: [
+            GridView.builder(
+              shrinkWrap: true,
+              gridDelegate:
+                  const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2, childAspectRatio: 3 / 2),
+              itemCount: Constants().homepageCardItems.length,
+              itemBuilder: (context, index) {
+                final item = data[index];
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: GestureDetector(
+                    onTap: () {
+                      print("tıklandı");
+                      Navigator.pushNamed(context, item["navigation"]!);
+                    },
+                    child: Card(
+                      elevation: 8,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 8.0),
+                            child: Text(
+                              item["title"]!,
+                              style:
+                                  TextStyle(fontSize: ekranGenisligi / 22),
+                            ),
+                          ),
+                          Icon(
+                            size: 26,
+                            Constants.getIconData(
+                              item["icon"]!,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              },
             ),
           ],
         ),
@@ -32,12 +86,12 @@ class _HomePageState extends State<HomePage> {
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
-          children: const [
+          children: [
             DrawerHeader(
-              decoration: BoxDecoration(color: Colors.white),
+              decoration: const BoxDecoration(color: Colors.white),
               child: Column(
                 children: [
-                  Expanded(
+                  const Expanded(
                     child: SizedBox(
                       width: 130,
                       height: 120,
@@ -48,47 +102,47 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   Text(
-                    "Mehmet Akif Küçükkaya",
-                    style: TextStyle(
+                    user[0]["name"]!,
+                    style: const TextStyle(
                         fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   Text(
-                    "Yazılım Mühendisliği",
-                    style: TextStyle(
+                    user[0]["section"]!,
+                    style: const TextStyle(
                         fontSize: 18, fontWeight: FontWeight.w400),
                   ),
                 ],
               ),
             ),
-            DrawerTile(
+            const DrawerTile(
               title: "Profil",
               route: "ProfilePage",
             ),
-            DrawerTile(
+            const DrawerTile(
               title: "Duyurular",
               route: "AnnouncementPage",
             ),
-            DrawerTile(
+            const DrawerTile(
               title: "Akademik Takvim",
               route: "CalendarPage",
             ),
-            DrawerTile(
+            const DrawerTile(
               title: "Notlar",
               route: "NotesPage",
             ),
-            DrawerTile(
+            const DrawerTile(
               title: "Ödevler/Projeler",
               route: "ProjectsPage",
             ),
-            DrawerTile(
+            const DrawerTile(
               title: "Ders Programı",
               route: "SyllabusPage",
             ),
-            DrawerTile(
+            const DrawerTile(
               title: "Ayarlar",
               route: "SettingsPage",
             ),
-            DrawerTile(
+            const DrawerTile(
               title: "Çıkış Yap",
               route: "SplashPage",
             ),

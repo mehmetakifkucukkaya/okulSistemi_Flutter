@@ -33,7 +33,6 @@ class Constants {
       "navigation": "ProjectsPage",
       "icon": "projects"
     },
-    {"title": "Ödevler", "navigation": "NotesPage", "icon": "home_work"},
     {
       "title": "Ders Programı",
       "navigation": "SyllabusPage",
@@ -59,7 +58,8 @@ class Constants {
     //   "navigation": "RectorsMessage",
     //   "icon": "message"
     // },
-    // {"title": "Ayarlar", "navigation": "Settings", "icon": "settings"},
+    {"title": "Ayarlar", "navigation": "Settings", "icon": "settings"},
+    {"title": "Çıkış Yap", "navigation": "LoginPage", "icon": "logout"},
   ];
 
   var users = [
