@@ -59,14 +59,16 @@ class Constants {
     //   "icon": "message"
     // },
     {"title": "Ayarlar", "navigation": "Settings", "icon": "settings"},
-    {"title": "Çıkış Yap", "navigation": "LoginPage", "icon": "logout"},
+    {"title": "Çıkış Yap", "navigation": "/", "icon": "logout"},
   ];
 
   var users = [
     {
       "name": "Mehmet Akif Küçükkaya",
       "class": "3",
-      "section": "Yazılım Mühendisliği"
+      "section": "Yazılım Mühendisliği",
+      "userName": "mehmetakifkucukkaya",
+      "password": "123456"
     },
   ];
 

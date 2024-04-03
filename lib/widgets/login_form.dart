@@ -1,6 +1,8 @@
 // ignore_for_file: dead_code
 
 import 'package:flutter/material.dart';
+import 'package:okul_sistemi/constants/constants.dart';
+import 'package:okul_sistemi/pages/HomePage.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -12,6 +14,11 @@ class LoginForm extends StatefulWidget {
 class _LoginFormState extends State<LoginForm> {
   @override
   Widget build(BuildContext context) {
+    var user = Constants().users;
+
+    var userName = user[0]["userName"]!;
+    var password = user[0]["password"]!;
+
     var ekranBilgisi = MediaQuery.of(context);
 
     final ekranYuksekligi = ekranBilgisi.size.width;
@@ -89,13 +96,27 @@ class _LoginFormState extends State<LoginForm> {
                   child: TextButton(
                     onPressed: () {
                       if (formKey.currentState!.validate()) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Center(
-                              child: Text('Giriş Yapılıyor...'),
+                        String enteredUsername =
+                            kullaniciAdiController.text;
+                        String enteredPassword = sifreController.text;
+
+                        if (enteredUsername.trim() == userName &&
+                            enteredPassword.trim() == password) {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const HomePage()),
+                          );
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Center(
+                                child: Text(
+                                    'Kullanıcı adı veya şifre hatalı!'),
+                              ),
                             ),
-                          ),
-                        );
+                          );
+                        }
                       }
                     },
                     style: ButtonStyle(
