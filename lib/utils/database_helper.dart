@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
+import '../models/campuse_model.dart';
 import '../models/course_model.dart';
 import '../models/grade_model.dart';
 import '../models/student_model.dart';
@@ -93,6 +94,15 @@ class DatabaseHelper {
       day TEXT,
       time TEXT,
       FOREIGN KEY (courseId) REFERENCES courses(courseId)
+    )
+  ''');
+
+    await db.execute('''
+    CREATE TABLE campuses(
+      name TEXT PRIMARY KEY,
+      latitude TEXT,
+      longitude TEXT,
+      img TEXT
     )
   ''');
   }
@@ -239,4 +249,22 @@ class DatabaseHelper {
       );
     });
   }
+
+  //* CAMPUSES
+
+  static Future<List<Campuses>> getAllCampuses() async {
+    final db = await database;
+    final List<Map<String, dynamic>> maps = await db.query('campuses');
+    return List.generate(maps.length, (i) {
+      return Campuses(
+        name: maps[i]['name'],
+        latitude: maps[i]['latitude'],
+        longitude: maps[i]['longitude'],
+        img: maps[i]['img'],
+      );
+    });
+  }
+
+
+  
 }
