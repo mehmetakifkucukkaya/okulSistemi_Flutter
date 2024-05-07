@@ -1,6 +1,9 @@
 import 'dart:async';
+
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
+
+import '../models/course_model.dart';
 import '../models/student_model.dart';
 
 class DatabaseHelper {
@@ -19,11 +22,11 @@ class DatabaseHelper {
     final path = await getDatabasesPath();
     final databasePath = join(path, _dbName);
     return await openDatabase(databasePath,
-        version: 1, onCreate: _createStudentTable);
+        version: 1, onCreate: _createTable);
   }
 
   // Tablo oluşturma işlemi
-  static Future<void> _createStudentTable(Database db, int version) async {
+  static Future<void> _createTable(Database db, int version) async {
     await db.execute('''
       CREATE TABLE students(
         studentId INTEGER PRIMARY KEY,
@@ -37,7 +40,29 @@ class DatabaseHelper {
         password TEXT
       )
     ''');
+
+    await db.execute('''
+  CREATE TABLE courses(
+    courseId INTEGER PRIMARY KEY,
+    courseName TEXT,
+    courseCode TEXT,
+    teacherId INTEGER,  -- Öğretmenin kimliği
+    FOREIGN KEY (teacherId) REFERENCES teachers(teacherId)  -- Öğretmenin öğrenci tablosuna referansı
+  )
+''');
+
+    // Dersi alan öğrecnilerin listesini tutan tablo
+    await db.execute('''
+  CREATE TABLE course_students(
+    courseId INTEGER,
+    studentId INTEGER,
+    FOREIGN KEY (courseId) REFERENCES courses(courseId),
+    FOREIGN KEY (studentId) REFERENCES students(studentId)
+  )
+''');
   }
+
+  //* STUDENTS
 
   // Öğrenci ekleme işlemi
   static Future<int> insertStudent(Student student) async {
@@ -83,5 +108,32 @@ class DatabaseHelper {
       where: 'studentId = ?',
       whereArgs: [studentId],
     );
+  }
+
+  //* COURSES
+
+  // Kurs ekleme işlemi
+  static Future<int> insertCourse(Course course) async {
+    final db = await database;
+    return await db.insert("courses", course.toMap());
+  }
+
+  // Tüm kursları getirme işlemi
+  static Future<List<Course>> getAllCourses() async {
+    final db = await database;
+    final List<Map<String, dynamic>> courseMaps =
+        await db.query("courses");
+    List<Course> courses = [];
+    for (var courseMap in courseMaps) {
+      Course course = Course(
+        courseId: courseMap['courseId'],
+        courseName: courseMap['courseName'],
+        courseCode: courseMap['courseCode'],
+        teacherId: courseMap['teacherId'],
+        students: [], // Öğrenci listesi boş olarak başlatılıyor
+      );
+      courses.add(course);
+    }
+    return courses;
   }
 }
