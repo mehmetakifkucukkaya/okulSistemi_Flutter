@@ -4,6 +4,7 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../models/course_model.dart';
+import '../models/grade_model.dart';
 import '../models/student_model.dart';
 import '../models/teacher_model.dart';
 
@@ -62,6 +63,17 @@ class DatabaseHelper {
     )
   ''');
 
+    await db.execute('''
+    CREATE TABLE grades(
+      gradeId INTEGER PRIMARY KEY,
+      studentId INTEGER,
+      courseId INTEGER,
+      gradeValue TEXT,
+      FOREIGN KEY (studentId) REFERENCES students(studentId),
+      FOREIGN KEY (courseId) REFERENCES courses(courseId)
+    )
+  ''');
+
     // Dersi alan öğrencilerin listesini tutan tablo
     await db.execute('''
     CREATE TABLE course_students(
@@ -74,7 +86,6 @@ class DatabaseHelper {
   }
 
   //* STUDENTS
-
   // Öğrenci ekleme işlemi
   static Future<int> insertStudent(Student student) async {
     final db = await database;
@@ -167,6 +178,28 @@ class DatabaseHelper {
         surname: teacherMaps[i]['surname'],
         email: teacherMaps[i]['email'],
         password: teacherMaps[i]['password'],
+      );
+    });
+  }
+
+  //* GRADES
+
+  // Grade ekleme işlemi
+  static Future<int> insertGrade(Grade grade) async {
+    final db = await database;
+    return await db.insert("grades", grade.toMap());
+  }
+
+  // Tüm notları getirme işlemi
+  static Future<List<Grade>> getGrades() async {
+    final db = await database;
+    final List<Map<String, dynamic>> gradeMaps = await db.query("grades");
+    return List.generate(gradeMaps.length, (i) {
+      return Grade(
+        gradeId: gradeMaps[i]['gradeId'],
+        studentId: gradeMaps[i]['studentId'],
+        courseId: gradeMaps[i]['courseId'],
+        gradeValue: gradeMaps[i]['gradeValue'],
       );
     });
   }
