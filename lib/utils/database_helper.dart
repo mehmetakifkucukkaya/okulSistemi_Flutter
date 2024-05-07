@@ -7,6 +7,7 @@ import '../models/course_model.dart';
 import '../models/grade_model.dart';
 import '../models/student_model.dart';
 import '../models/teacher_model.dart';
+import '../models/weekly_schedule_model.dart';
 
 class DatabaseHelper {
   static Database? _database;
@@ -81,6 +82,17 @@ class DatabaseHelper {
       studentId INTEGER,
       FOREIGN KEY (courseId) REFERENCES courses(courseId),
       FOREIGN KEY (studentId) REFERENCES students(studentId)
+    )
+  ''');
+
+    await db.execute('''
+    CREATE TABLE weekly_schedules(
+      scheduleId INTEGER PRIMARY KEY,
+      courseId INTEGER,
+      classroom TEXT,
+      day TEXT,
+      time TEXT,
+      FOREIGN KEY (courseId) REFERENCES courses(courseId)
     )
   ''');
   }
@@ -200,6 +212,30 @@ class DatabaseHelper {
         studentId: gradeMaps[i]['studentId'],
         courseId: gradeMaps[i]['courseId'],
         gradeValue: gradeMaps[i]['gradeValue'],
+      );
+    });
+  }
+
+//* WEEKLY SCHEDULE
+
+// WeeklySchedule ekleme işlemi
+  static Future<int> insertWeeklySchedule(WeeklySchedule schedule) async {
+    final db = await database;
+    return await db.insert("weekly_schedules", schedule.toMap());
+  }
+
+  // Tüm haftalık programları getirme işlemi
+  static Future<List<WeeklySchedule>> getWeeklySchedules() async {
+    final db = await database;
+    final List<Map<String, dynamic>> scheduleMaps =
+        await db.query("weekly_schedules");
+    return List.generate(scheduleMaps.length, (i) {
+      return WeeklySchedule(
+        scheduleId: scheduleMaps[i]['scheduleId'],
+        courseId: scheduleMaps[i]['courseId'],
+        classroom: scheduleMaps[i]['classroom'],
+        day: scheduleMaps[i]['day'],
+        time: scheduleMaps[i]['time'],
       );
     });
   }
