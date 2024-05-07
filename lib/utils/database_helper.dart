@@ -100,7 +100,8 @@ class DatabaseHelper {
 
     await db.execute('''
     CREATE TABLE campuses(
-      name TEXT PRIMARY KEY,
+      campuseId INTEGER PRIMARY KEY,
+      name TEXT 
       latitude TEXT,
       longitude TEXT,
       img TEXT
@@ -109,9 +110,18 @@ class DatabaseHelper {
 
     await db.execute('''
     CREATE TABLE announcements(
-      title TEXT PRIMARY KEY,
+      id INTEGER PRIMARY KEY,
+      title TEXT,
       description TEXT,
       time TEXT
+    )
+  ''');
+
+    await db.execute('''
+    CREATE TABLE events(
+      id INTEGER PRIMARY KEY,
+      date TEXT,
+      event TEXT
     )
   ''');
   }
@@ -261,18 +271,20 @@ class DatabaseHelper {
 
   //* CAMPUSES
 
-  static Future<List<Campuses>> getAllCampuses() async {
-    final db = await database;
-    final List<Map<String, dynamic>> maps = await db.query('campuses');
-    return List.generate(maps.length, (i) {
-      return Campuses(
-        name: maps[i]['name'],
-        latitude: maps[i]['latitude'],
-        longitude: maps[i]['longitude'],
-        img: maps[i]['img'],
-      );
-    });
-  }
+  static Future<List<Campus>> getAllCampuses() async {
+  final db = await database;
+  final List<Map<String, dynamic>> maps = await db.query('campuses');
+  return List.generate(maps.length, (i) {
+    return Campus(
+      campusId: maps[i]['campusId'],
+      name: maps[i]['name'],
+      latitude: maps[i]['latitude'],
+      longitude: maps[i]['longitude'],
+      img: maps[i]['img'],
+    );
+  });
+}
+
 
   //* ANNOUNCEMENTS
 
@@ -282,6 +294,7 @@ class DatabaseHelper {
         await db.query('announcements');
     return List.generate(maps.length, (i) {
       return Announcements(
+        id: maps[i]['id'],
         title: maps[i]['title'],
         description: maps[i]['description'],
         time: maps[i]['time'],
