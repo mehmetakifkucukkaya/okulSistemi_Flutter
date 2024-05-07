@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:okul_sistemi/views/AddStudentPage.dart';
 import 'package:okul_sistemi/views/AnnouncementPage.dart';
 import 'package:okul_sistemi/views/CalendarPage.dart';
 import 'package:okul_sistemi/views/CampusesPage.dart';
 import 'package:okul_sistemi/views/HomePage.dart';
-import 'package:okul_sistemi/views/SplashPage.dart';
 import 'package:okul_sistemi/views/LoginPage.dart';
+import 'package:okul_sistemi/views/StudentsPage.dart';
 
-void main() {
+import 'utils/database_helper.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await DatabaseHelper.initDatabase(); // Veritabanını başlat
   runApp(const MyApp());
 }
 
@@ -23,12 +28,14 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       routes: {
-        '/': (context) => const SplashPage(),
+        '/': (context) => const StudentsPage(),
         'LoginPage': (context) => const LoginPage(),
         'AnnouncementPage': (context) => const AnnouncementPage(),
         'CalendarPage': (context) => const CalendarPage(),
         'CampusesPage': (context) => const CampusesPage(),
         'HomePage': (context) => const HomePage(),
+        'AddStudentPage': (context) => const AddStudentPage(),
+
         // 'RectorsMessage': (context) => const (),
         // 'Settings': (context) => const Settings(),
       },
