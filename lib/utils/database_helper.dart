@@ -5,6 +5,7 @@ import 'package:sqflite/sqflite.dart';
 
 import '../models/course_model.dart';
 import '../models/student_model.dart';
+import '../models/teacher_model.dart';
 
 class DatabaseHelper {
   static Database? _database;
@@ -28,38 +29,48 @@ class DatabaseHelper {
   // Tablo oluşturma işlemi
   static Future<void> _createTable(Database db, int version) async {
     await db.execute('''
-      CREATE TABLE students(
-        studentId INTEGER PRIMARY KEY,
-        name TEXT,
-        surName TEXT,
-        imgUrl TEXT,
-        studentNo TEXT,
-        section TEXT,
-        grade TEXT,
-        email TEXT,
-        password TEXT
-      )
-    ''');
+    CREATE TABLE students(
+      studentId INTEGER PRIMARY KEY,
+      name TEXT,
+      surName TEXT,
+      imgUrl TEXT,
+      studentNo TEXT,
+      section TEXT,
+      grade TEXT,
+      email TEXT,
+      password TEXT
+    )
+  ''');
 
     await db.execute('''
-  CREATE TABLE courses(
-    courseId INTEGER PRIMARY KEY,
-    courseName TEXT,
-    courseCode TEXT,
-    teacherId INTEGER,  -- Öğretmenin kimliği
-    FOREIGN KEY (teacherId) REFERENCES teachers(teacherId)  -- Öğretmenin öğrenci tablosuna referansı
-  )
-''');
+    CREATE TABLE teachers(
+      teacherId INTEGER PRIMARY KEY,
+      name TEXT,
+      surname TEXT,
+      email TEXT,
+      password TEXT
+    )
+  ''');
 
-    // Dersi alan öğrecnilerin listesini tutan tablo
     await db.execute('''
-  CREATE TABLE course_students(
-    courseId INTEGER,
-    studentId INTEGER,
-    FOREIGN KEY (courseId) REFERENCES courses(courseId),
-    FOREIGN KEY (studentId) REFERENCES students(studentId)
-  )
-''');
+    CREATE TABLE courses(
+      courseId INTEGER PRIMARY KEY,
+      courseName TEXT,
+      courseCode TEXT,
+      teacherId INTEGER,
+      FOREIGN KEY (teacherId) REFERENCES teachers(teacherId)
+    )
+  ''');
+
+    // Dersi alan öğrencilerin listesini tutan tablo
+    await db.execute('''
+    CREATE TABLE course_students(
+      courseId INTEGER,
+      studentId INTEGER,
+      FOREIGN KEY (courseId) REFERENCES courses(courseId),
+      FOREIGN KEY (studentId) REFERENCES students(studentId)
+    )
+  ''');
   }
 
   //* STUDENTS
@@ -135,5 +146,28 @@ class DatabaseHelper {
       courses.add(course);
     }
     return courses;
+  }
+
+  //* TEACHERS
+
+  // Öğretmen ekleme işlemi
+  static Future<int> insertTeacher(Teacher teacher) async {
+    final db = await database;
+    return await db.insert("teachers", teacher.toMap());
+  }
+
+  static Future<List<Teacher>> getTeachers() async {
+    final db = await database;
+    final List<Map<String, dynamic>> teacherMaps =
+        await db.query("teachers");
+    return List.generate(teacherMaps.length, (i) {
+      return Teacher(
+        teacherId: teacherMaps[i]['teacherId'],
+        name: teacherMaps[i]['name'],
+        surname: teacherMaps[i]['surname'],
+        email: teacherMaps[i]['email'],
+        password: teacherMaps[i]['password'],
+      );
+    });
   }
 }
