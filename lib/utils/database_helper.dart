@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
+import '../models/announcement_model.dart';
 import '../models/campuse_model.dart';
 import '../models/course_model.dart';
 import '../models/grade_model.dart';
@@ -103,6 +104,14 @@ class DatabaseHelper {
       latitude TEXT,
       longitude TEXT,
       img TEXT
+    )
+  ''');
+
+    await db.execute('''
+    CREATE TABLE announcements(
+      title TEXT PRIMARY KEY,
+      description TEXT,
+      time TEXT
     )
   ''');
   }
@@ -265,6 +274,18 @@ class DatabaseHelper {
     });
   }
 
+  //* ANNOUNCEMENTS
 
-  
+  static Future<List<Announcements>> getAllAnnouncements() async {
+    final db = await database;
+    final List<Map<String, dynamic>> maps =
+        await db.query('announcements');
+    return List.generate(maps.length, (i) {
+      return Announcements(
+        title: maps[i]['title'],
+        description: maps[i]['description'],
+        time: maps[i]['time'],
+      );
+    });
+  }
 }
