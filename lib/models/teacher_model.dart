@@ -1,5 +1,5 @@
 class Teacher {
-  final String teacherId;
+  final int teacherId;
   final String name;
   final String surname;
   final String email;

@@ -101,7 +101,7 @@ class DatabaseHelper {
     await db.execute('''
     CREATE TABLE campuses(
       campuseId INTEGER PRIMARY KEY,
-      name TEXT 
+      name TEXT,
       latitude TEXT,
       longitude TEXT,
       img TEXT
@@ -272,19 +272,18 @@ class DatabaseHelper {
   //* CAMPUSES
 
   static Future<List<Campus>> getAllCampuses() async {
-  final db = await database;
-  final List<Map<String, dynamic>> maps = await db.query('campuses');
-  return List.generate(maps.length, (i) {
-    return Campus(
-      campusId: maps[i]['campusId'],
-      name: maps[i]['name'],
-      latitude: maps[i]['latitude'],
-      longitude: maps[i]['longitude'],
-      img: maps[i]['img'],
-    );
-  });
-}
-
+    final db = await database;
+    final List<Map<String, dynamic>> maps = await db.query('campuses');
+    return List.generate(maps.length, (i) {
+      return Campus(
+        campusId: maps[i]['campusId'],
+        name: maps[i]['name'],
+        latitude: maps[i]['latitude'],
+        longitude: maps[i]['longitude'],
+        img: maps[i]['img'],
+      );
+    });
+  }
 
   //* ANNOUNCEMENTS
 
@@ -300,5 +299,38 @@ class DatabaseHelper {
         time: maps[i]['time'],
       );
     });
+  }
+
+  //* COURSE_STUDENT
+
+  // Her ders için öğrenci sayısını getirme işlemi
+
+  static Future<Map<int, int>> getStudentCountPerCourse() async {
+    final db = await database;
+    final List<Map<String, dynamic>> result = await db.rawQuery('''
+    SELECT courseId, COUNT(*) as studentCount 
+    FROM course_students 
+    GROUP BY courseId
+  ''');
+
+    Map<int, int> countMap = {};
+    for (var row in result) {
+      final int courseId = row['courseId'];
+      final int studentCount = row['studentCount'];
+      countMap[courseId] = studentCount;
+    }
+    return countMap;
+  }
+
+// Dersi alan öğrencileri getirme işlemi
+  static Future<List<Map<String, dynamic>>> getCourseStudents(
+      int courseId) async {
+    final db = await database;
+    return await db.rawQuery('''
+    SELECT course_students.studentId, students.name AS studentName, students.surName AS studentSurName
+    FROM course_students
+    INNER JOIN students ON course_students.studentId = students.studentId
+    WHERE course_students.courseId = ?
+  ''', [courseId]);
   }
 }

@@ -1,10 +1,10 @@
 import 'student_model.dart';
 
 class Course {
-  final String courseId;
+  final int courseId;
   final String courseName;
   final String courseCode;
-  final String teacherId;
+  final int teacherId;
   final List<Student> students;
 
   Course({
