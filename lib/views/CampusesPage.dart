@@ -1,14 +1,18 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
-import 'package:okul_sistemi/constants/constants.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+import '../controllers/campus_controller.dart';
+import '../models/campuse_model.dart';
+
 class CampusesPage extends StatelessWidget {
-  const CampusesPage({super.key});
+  const CampusesPage({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
-    var campuses = Constants().yerleskeler;
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.orangeAccent,
@@ -16,48 +20,57 @@ class CampusesPage extends StatelessWidget {
           child: Text("Yerleşkelerimiz"),
         ),
       ),
-      body: ListView.builder(
-        itemCount: campuses.length,
-        itemBuilder: (context, index) {
-          final campus = campuses[index];
-          return GestureDetector(
-            onTap: () {
-              _showCampusDetails(context, campus);
-            },
-            child: Card(
-              child: Row(
-                children: [
-                  SizedBox(
-                    width: 100,
-                    height: 100,
-                    child: Image.asset(
-                      campus['img'],
-                      fit: BoxFit.cover,
+      body: FutureBuilder<List<Campus>>(
+        future: CampusController.getAllCampuses(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Hata: ${snapshot.error}'));
+          } else {
+            final List<Campus> campuses = snapshot.data ?? [];
+            return ListView.builder(
+              itemCount: campuses.length,
+              itemBuilder: (context, index) {
+                final Campus campus = campuses[index];
+                return GestureDetector(
+                  onTap: () {
+                    _showCampusDetails(context, campus);
+                  },
+                  child: Card(
+                    child: Row(
+                      children: [
+                        SizedBox(
+                            width: 100,
+                            height: 100,
+                            child: Image.network(
+                              campus.img,
+                              fit: BoxFit.cover,
+                            )),
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              campus.name,
+                              style: const TextStyle(fontSize: 18),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        campus['name'],
-                        style: const TextStyle(fontSize: 18),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          );
+                );
+              },
+            );
+          }
         },
       ),
     );
   }
 
-  //* Modal'ı oluşturan metot
-  void _showCampusDetails(
-      BuildContext context, Map<String, dynamic> campus) {
+  void _showCampusDetails(BuildContext context, Campus campus) {
     showModalBottomSheet(
-      isScrollControlled: true, //* Ekranı tamamen kaplamasını sağlar
+      isScrollControlled: true,
       context: context,
       builder: (BuildContext context) {
         return SingleChildScrollView(
@@ -69,7 +82,7 @@ class CampusesPage extends StatelessWidget {
               children: <Widget>[
                 Center(
                   child: Text(
-                    campus['name'],
+                    campus.name,
                     style: const TextStyle(
                         fontSize: 24, fontWeight: FontWeight.bold),
                   ),
@@ -81,23 +94,22 @@ class CampusesPage extends StatelessWidget {
                       TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 5),
-                // Google Maps widget'ını burada kullanın
                 SizedBox(
                   height: 200,
                   child: GoogleMap(
                     initialCameraPosition: CameraPosition(
                       target: LatLng(
-                        double.parse(campus["coordinates"]["latitude"]),
-                        double.parse(campus["coordinates"]["longitude"]),
+                        double.parse(campus.latitude),
+                        double.parse(campus.longitude),
                       ),
                       zoom: 15,
                     ),
                     markers: {
                       Marker(
-                        markerId: MarkerId(campus['name']),
+                        markerId: MarkerId(campus.name),
                         position: LatLng(
-                          double.parse(campus["coordinates"]["latitude"]),
-                          double.parse(campus["coordinates"]["longitude"]),
+                          double.parse(campus.latitude),
+                          double.parse(campus.longitude),
                         ),
                       ),
                     },

@@ -273,14 +273,15 @@ class DatabaseHelper {
 
   static Future<List<Campus>> getAllCampuses() async {
     final db = await database;
-    final List<Map<String, dynamic>> maps = await db.query('campuses');
-    return List.generate(maps.length, (i) {
+    final List<Map<String, dynamic>> campusMaps =
+        await db.query('campuses');
+    return List.generate(campusMaps.length, (i) {
       return Campus(
-        campusId: maps[i]['campusId'],
-        name: maps[i]['name'],
-        latitude: maps[i]['latitude'],
-        longitude: maps[i]['longitude'],
-        img: maps[i]['img'],
+        campuseId: campusMaps[i]['campuseId'],
+        name: campusMaps[i]['name'],
+        latitude: campusMaps[i]['latitude'],
+        longitude: campusMaps[i]['longitude'],
+        img: campusMaps[i]['img'],
       );
     });
   }
