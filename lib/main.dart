@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:okul_sistemi/views/AddStudentPage.dart';
-import 'package:okul_sistemi/views/AnnouncementPage.dart';
-import 'package:okul_sistemi/views/CalendarPage.dart';
-import 'package:okul_sistemi/views/CampusesPage.dart';
-import 'package:okul_sistemi/views/HomePage.dart';
-import 'package:okul_sistemi/views/LoginPage.dart';
+import 'package:okul_sistemi/views/add_student_page.dart';
+import 'package:okul_sistemi/views/announcement_page.dart';
+import 'package:okul_sistemi/views/calendar_page.dart';
+import 'package:okul_sistemi/views/campuses_page.dart';
+import 'package:okul_sistemi/views/home_page.dart';
+import 'package:okul_sistemi/views/login_page.dart';
 
 import 'utils/database_helper.dart';
 

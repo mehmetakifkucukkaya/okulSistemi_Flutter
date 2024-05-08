@@ -1,47 +1,41 @@
-// ignore_for_file: file_names
-
 import 'package:flutter/material.dart';
 import 'package:okul_sistemi/constants/constants.dart';
 import 'package:okul_sistemi/widgets/drawer_tiles.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class SplashPage extends StatelessWidget {
+  const SplashPage({super.key});
 
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    var data = Constants().homepageCardItems;
-    var user = Constants().users;
+    var data = Constants().splashpageCardItems;
 
     var ekranBilgisi = MediaQuery.of(context);
 
-    // final ekranYuksekligi = ekranBilgisi.size.height;
+    final ekranYuksekligi = ekranBilgisi.size.height;
     final ekranGenisligi = ekranBilgisi.size.width;
 
     return Scaffold(
       appBar: AppBar(
+        title: const Center(child: Text('Topkapı Üniversitesi')),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Center(
-          child: Text(
-            user[0]["name"]!,
-            style:
-                const TextStyle(fontSize: 26, fontWeight: FontWeight.w600),
-          ),
-        ),
       ),
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Column(
           children: [
+            Padding(
+              padding: EdgeInsets.only(bottom: ekranYuksekligi / 70),
+              child: SizedBox(
+                width: ekranGenisligi / 2,
+                child: Image.asset("assets/Icon.png"),
+              ),
+            ),
             GridView.builder(
               shrinkWrap: true,
               gridDelegate:
                   const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2, childAspectRatio: 3 / 2),
-              itemCount: Constants().homepageCardItems.length,
+              itemCount: Constants().splashpageCardItems.length,
               itemBuilder: (context, index) {
                 final item = data[index];
                 return Padding(
@@ -91,32 +85,22 @@ class _HomePageState extends State<HomePage> {
               decoration: const BoxDecoration(color: Colors.white),
               child: Column(
                 children: [
-                  const Expanded(
-                    child: SizedBox(
-                      width: 130,
-                      height: 120,
-                      child: CircleAvatar(
-                        backgroundImage:
-                            AssetImage("assets/userAvatar.png"),
-                      ),
+                  SizedBox(
+                    width: 800,
+                    height: 120,
+                    child: Image.asset(
+                      "assets/Icon.png",
+                      fit: BoxFit.cover,
                     ),
-                  ),
-                  Text(
-                    user[0]["name"]!,
-                    style: const TextStyle(
-                        fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    user[0]["section"]!,
-                    style: const TextStyle(
-                        fontSize: 18, fontWeight: FontWeight.w400),
                   ),
                 ],
               ),
             ),
+
+            // TODO: Diğer Sayfalar yapılınca navigation işlemleri yapılacak
             const DrawerTile(
-              title: "Profil",
-              route: "ProfilePage",
+              title: "Giriş Yap",
+              route: "LoginPage",
             ),
             const DrawerTile(
               title: "Duyurular",
@@ -127,24 +111,12 @@ class _HomePageState extends State<HomePage> {
               route: "CalendarPage",
             ),
             const DrawerTile(
-              title: "Notlar",
-              route: "NotesPage",
-            ),
-            const DrawerTile(
-              title: "Ödevler/Projeler",
-              route: "ProjectsPage",
-            ),
-            const DrawerTile(
-              title: "Ders Programı",
-              route: "SyllabusPage",
+              title: "Kampüslerimiz",
+              route: "LoginPage",
             ),
             const DrawerTile(
               title: "Ayarlar",
-              route: "SettingsPage",
-            ),
-            const DrawerTile(
-              title: "Çıkış Yap",
-              route: "SplashPage",
+              route: "LoginPage",
             ),
           ],
         ),

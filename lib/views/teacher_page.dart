@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../models/teacher_model.dart'; // Öğretmen model sınıfınızın bulunduğu dosyayı import edin
+import '../models/teacher_model.dart'; 
 import '../utils/database_helper.dart';
 
 class TeachersPage extends StatefulWidget {

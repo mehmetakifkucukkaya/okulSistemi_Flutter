@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../models/course_model.dart';
 import '../utils/database_helper.dart';
 

@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:okul_sistemi/constants/constants.dart';
-import 'package:okul_sistemi/views/HomePage.dart';
+import 'package:okul_sistemi/views/home_page.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
