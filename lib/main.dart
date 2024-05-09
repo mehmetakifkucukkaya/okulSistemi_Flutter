@@ -3,6 +3,7 @@ import 'package:okul_sistemi/views/add_student_page.dart';
 import 'package:okul_sistemi/views/announcement_page.dart';
 import 'package:okul_sistemi/views/calendar_page.dart';
 import 'package:okul_sistemi/views/campuses_page.dart';
+import 'package:okul_sistemi/views/grade_page.dart';
 import 'package:okul_sistemi/views/home_page.dart';
 import 'package:okul_sistemi/views/login_page.dart';
 
@@ -28,7 +29,9 @@ class MyApp extends StatelessWidget {
       ),
       routes: {
         // '/': (context) => const SplashPage(),
-        '/': (context) => const AnnouncementPage(),
+        '/': (context) => const GradePage(
+              studentId: 1,
+            ),
         'LoginPage': (context) => const LoginPage(),
         'AnnouncementPage': (context) => const AnnouncementPage(),
         'CalendarPage': (context) => const CalendarPage(),

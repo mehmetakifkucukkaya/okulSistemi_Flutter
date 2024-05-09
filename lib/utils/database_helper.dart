@@ -241,9 +241,34 @@ class DatabaseHelper {
         studentId: gradeMaps[i]['studentId'],
         courseId: gradeMaps[i]['courseId'],
         gradeValue: gradeMaps[i]['gradeValue'],
+        letterGrade: gradeMaps[i]['letterGrade'],
+        courseName: gradeMaps[i]['courseName'],
       );
     });
   }
+
+// getGradesByStudentId metodunu DatabaseHelper sınıfına ekleyin
+ static Future<List<Grade>> getGradesByStudentId(int studentId) async {
+  final db = await database;
+  final List<Map<String, dynamic>> maps = await db.rawQuery('''
+    SELECT grades.gradeId, grades.studentId, grades.gradeValue, grades.letterGrade, courses.courseId, courses.courseName
+    FROM grades
+    INNER JOIN courses ON grades.courseId = courses.courseId
+    WHERE grades.studentId = $studentId
+  ''');
+
+  return List.generate(maps.length, (i) {
+    return Grade(
+      gradeId: maps[i]['gradeId'],
+      studentId: maps[i]['studentId'],
+      courseId: maps[i]['courseId'],
+      gradeValue: maps[i]['gradeValue'],
+      letterGrade: maps[i]['letterGrade'],
+      courseName: maps[i]['courseName'], // Ders adı
+    );
+  });
+}
+
 
 //* WEEKLY SCHEDULE
 

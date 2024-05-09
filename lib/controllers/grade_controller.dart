@@ -21,4 +21,15 @@ class GradeController {
       return [];
     }
   }
+
+  static Future<List<Grade>> getGradesByStudentId(int studentId) async {
+    try {
+      final List<Grade> grades =
+          await DatabaseHelper.getGradesByStudentId(studentId);
+      return grades;
+    } catch (e) {
+      print('Öğrenci notları alınırken hata oluştu: $e');
+      return []; // Hata durumunda boş bir liste döndürüyoruz.
+    }
+  }
 }
