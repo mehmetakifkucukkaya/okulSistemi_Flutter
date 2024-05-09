@@ -8,6 +8,7 @@ import 'package:okul_sistemi/views/home_page.dart';
 import 'package:okul_sistemi/views/login_page.dart';
 
 import 'utils/database_helper.dart';
+import 'views/splash_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,16 +29,18 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       routes: {
-        // '/': (context) => const SplashPage(),
-        '/': (context) => const GradePage(
-              studentId: 1,
-            ),
+        '/': (context) => const SplashPage(),
+        // '/': (context) => const GradePage(
+        //       studentId: 2,
+        //     ),
         'LoginPage': (context) => const LoginPage(),
+        'HomePage': (context) => const HomePage(),
         'AnnouncementPage': (context) => const AnnouncementPage(),
         'CalendarPage': (context) => const CalendarPage(),
         'CampusesPage': (context) => const CampusesPage(),
-        'HomePage': (context) => const HomePage(),
-        'AddStudentPage': (context) => const AddStudentPage(),
+        'GradePage': (context) => const GradePage(
+              studentId: 1,
+            ),
 
         // 'RectorsMessage': (context) => const (),
         // 'Settings': (context) => const Settings(),

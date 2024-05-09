@@ -31,54 +31,56 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            GridView.builder(
-              shrinkWrap: true,
-              gridDelegate:
-                  const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2, childAspectRatio: 3 / 2),
-              itemCount: Constants().homepageCardItems.length,
-              itemBuilder: (context, index) {
-                final item = data[index];
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: GestureDetector(
-                    onTap: () {
-                      print("tıklandı");
-                      Navigator.pushNamed(context, item["navigation"]!);
-                    },
-                    child: Card(
-                      elevation: 8,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 8.0),
-                            child: Text(
-                              item["title"]!,
-                              style:
-                                  TextStyle(fontSize: ekranGenisligi / 22),
+      body: Center(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              GridView.builder(
+                shrinkWrap: true,
+                gridDelegate:
+                    const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2, childAspectRatio: 3 / 2),
+                itemCount: Constants().homepageCardItems.length,
+                itemBuilder: (context, index) {
+                  final item = data[index];
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: GestureDetector(
+                      onTap: () {
+                        print("tıklandı");
+                        Navigator.pushNamed(context, item["navigation"]!);
+                      },
+                      child: Card(
+                        elevation: 8,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 8.0),
+                              child: Text(
+                                item["title"]!,
+                                style: TextStyle(
+                                    fontSize: ekranGenisligi / 22),
+                              ),
                             ),
-                          ),
-                          Icon(
-                            size: 26,
-                            Constants.getIconData(
-                              item["icon"]!,
+                            Icon(
+                              size: 26,
+                              Constants.getIconData(
+                                item["icon"]!,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                );
-              },
-            ),
-          ],
+                  );
+                },
+              ),
+            ],
+          ),
         ),
       ),
       drawer: Drawer(
@@ -126,11 +128,7 @@ class _HomePageState extends State<HomePage> {
             ),
             const DrawerTile(
               title: "Notlar",
-              route: "NotesPage",
-            ),
-            const DrawerTile(
-              title: "Ödevler/Projeler",
-              route: "ProjectsPage",
+              route: "GradePage",
             ),
             const DrawerTile(
               title: "Ders Programı",
