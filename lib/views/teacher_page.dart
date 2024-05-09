@@ -1,6 +1,8 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 
-import '../models/teacher_model.dart'; 
+import '../models/teacher_model.dart';
 import '../utils/database_helper.dart';
 
 class TeachersPage extends StatefulWidget {
@@ -16,7 +18,8 @@ class _TeachersPageState extends State<TeachersPage> {
   @override
   void initState() {
     super.initState();
-    _teachersFuture = DatabaseHelper.getTeachers(); // Öğretmenleri getiren metodu çağırın
+    _teachersFuture = DatabaseHelper
+        .getTeachers(); // Öğretmenleri getiren metodu çağırın
   }
 
   @override

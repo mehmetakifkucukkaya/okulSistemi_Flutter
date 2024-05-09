@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:okul_sistemi/views/add_student_page.dart';
 import 'package:okul_sistemi/views/announcement_page.dart';
 import 'package:okul_sistemi/views/calendar_page.dart';
 import 'package:okul_sistemi/views/campuses_page.dart';
@@ -8,7 +7,7 @@ import 'package:okul_sistemi/views/home_page.dart';
 import 'package:okul_sistemi/views/login_page.dart';
 
 import 'utils/database_helper.dart';
-import 'views/splash_page.dart';
+import 'views/rectors_message_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,7 +28,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       routes: {
-        '/': (context) => const SplashPage(),
+        '/': (context) => const RectorsMessage(),
         // '/': (context) => const GradePage(
         //       studentId: 2,
         //     ),
@@ -41,8 +40,7 @@ class MyApp extends StatelessWidget {
         'GradePage': (context) => const GradePage(
               studentId: 1,
             ),
-
-        // 'RectorsMessage': (context) => const (),
+        'RectorsMessage': (context) => const RectorsMessage()
         // 'Settings': (context) => const Settings(),
       },
     );
