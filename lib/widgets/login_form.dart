@@ -1,4 +1,12 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+
+import '../controllers/student_controller.dart';
+import '../controllers/teacher_controller.dart';
+import '../models/student_model.dart';
+import '../models/teacher_model.dart';
 
 // TODO: Giriş yapma işlemi yapılacak -> DB'deki verilere göre kontrol edilecek
 
@@ -119,7 +127,38 @@ class _LoginFormState extends State<LoginForm> {
                       height: ekranYuksekligi / 9,
                       width: ekranGenisligi / 1.4,
                       child: TextButton(
-                        onPressed: () {},
+                        // Öğretmen girişi
+                        onPressed: () async {
+                          if (widget.formKey.currentState!.validate()) {
+                            String email = widget.emailController.text;
+                            String password =
+                                widget.passwordController.text;
+
+                            List<Teacher> teachers =
+                                await TeacherController.getAllTeachers();
+                            Teacher? teacher = teachers.firstWhereOrNull(
+                              (t) =>
+                                  t.email == email &&
+                                  t.password == password,
+                            );
+
+                            if (teacher != null) {
+                              print(
+                                  'Öğretmen girişi başarılı: ${teacher.name} ${teacher.surname}');
+                            } else {
+                              print(
+                                  'Öğretmen bulunamadı veya giriş bilgileri yanlış');
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text(
+                                      'Giriş bilgileri yanlış. Lütfen tekrar deneyin.'),
+                                  duration: Duration(seconds: 3),
+                                ),
+                              );
+                            }
+                          }
+                        },
+
                         style: ButtonStyle(
                           shape: MaterialStateProperty.all(
                             RoundedRectangleBorder(
@@ -229,7 +268,35 @@ class _LoginFormState extends State<LoginForm> {
                     height: ekranYuksekligi / 9,
                     width: ekranGenisligi / 1.4,
                     child: TextButton(
-                      onPressed: () {},
+                      // Öğrenci girişi
+                      onPressed: () async {
+                        if (widget.formKey.currentState!.validate()) {
+                          String studentNo =
+                              widget.studentNoController.text;
+                          String password = widget.passwordController.text;
+
+                          List<Student> students =
+                              await StudentController.getStudents();
+                          Student? student = students.firstWhereOrNull(
+                              (s) =>
+                                  s.studentNo == studentNo &&
+                                  s.password == password);
+
+                          if (student != null) {
+                            print(
+                                'Öğrenci girişi başarılı: ${student.name} ${student.surName} ${student.section}');
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text(
+                                    'Giriş bilgileri yanlış. Lütfen tekrar deneyin.'),
+                                duration: Duration(seconds: 3),
+                              ),
+                            );
+                          }
+                        }
+                      },
+
                       style: ButtonStyle(
                         shape: MaterialStateProperty.all(
                           RoundedRectangleBorder(
