@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       routes: {
-        '/': (context) => const RectorsMessage(),
+        '/': (context) => const LoginPage(),
         // '/': (context) => const GradePage(
         //       studentId: 2,
         //     ),

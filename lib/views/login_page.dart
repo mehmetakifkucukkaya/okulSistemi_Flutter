@@ -1,39 +1,57 @@
 import 'package:flutter/material.dart';
-import 'package:okul_sistemi/widgets/login_form.dart';
 
-//TODO: Validation işlemleri yapılacak
+import '../widgets/login_form.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    var ekranBilgisi = MediaQuery.of(context);
+    final formKeyTeacher = GlobalKey<FormState>();
+    final formKeyStudent = GlobalKey<FormState>();
+    final emailController = TextEditingController();
+    final passwordController = TextEditingController();
+    final studentNoController = TextEditingController();
 
-    final ekranYuksekligi = ekranBilgisi.size.height;
-    final ekranGenisligi = ekranBilgisi.size.width;
-
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.orangeAccent,
-        title: const Text('Login Page'),
-      ),
-      backgroundColor: Colors.white,
-      body: Center(
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Padding(
-                padding: EdgeInsets.only(bottom: ekranYuksekligi / 70),
-                child: SizedBox(
-                  width: ekranGenisligi / 2,
-                  child: Image.asset("assets/Icon.png"),
-                ),
+    return DefaultTabController(
+      length: 2, // 2 sekme (Öğretmen ve Öğrenci)
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.orangeAccent,
+          title: const Center(child: Text('Login Page')),
+          bottom: const TabBar(
+            labelStyle: TextStyle(
+                fontSize: 16,
+                color: Colors.black,
+                fontWeight: FontWeight.w600),
+            indicatorColor: Colors.grey,
+            tabs: [
+              Tab(
+                child: Text("Öğretmen"),
               ),
-              const LoginForm(),
+              Tab(
+                child: Text("Öğrenci"),
+              )
             ],
           ),
+        ),
+        body: TabBarView(
+          children: [
+            LoginForm(
+              userType: UserType.teacher,
+              formKey: formKeyTeacher,
+              emailController: emailController,
+              passwordController: passwordController,
+              studentNoController: TextEditingController(),
+            ),
+            LoginForm(
+              userType: UserType.student,
+              formKey: formKeyStudent,
+              emailController: TextEditingController(),
+              passwordController: passwordController,
+              studentNoController: studentNoController,
+            ),
+          ],
         ),
       ),
     );
