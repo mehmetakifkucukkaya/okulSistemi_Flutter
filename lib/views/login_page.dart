@@ -11,6 +11,7 @@ class LoginPage extends StatelessWidget {
     final formKeyStudent = GlobalKey<FormState>();
     final emailController = TextEditingController();
     final passwordController = TextEditingController();
+    final passwordControllerStd = TextEditingController();
     final studentNoController = TextEditingController();
 
     return DefaultTabController(
@@ -48,7 +49,7 @@ class LoginPage extends StatelessWidget {
               userType: UserType.student,
               formKey: formKeyStudent,
               emailController: TextEditingController(),
-              passwordController: passwordController,
+              passwordController: passwordControllerStd,
               studentNoController: studentNoController,
             ),
           ],

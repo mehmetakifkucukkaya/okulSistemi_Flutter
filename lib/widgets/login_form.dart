@@ -2,6 +2,7 @@
 
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:okul_sistemi/views/home_page.dart';
 
 import '../controllers/student_controller.dart';
 import '../controllers/teacher_controller.dart';
@@ -145,6 +146,7 @@ class _LoginFormState extends State<LoginForm> {
                             if (teacher != null) {
                               print(
                                   'Öğretmen girişi başarılı: ${teacher.name} ${teacher.surname}');
+                              Navigator.pushNamed(context, "CoursesPage");
                             } else {
                               print(
                                   'Öğretmen bulunamadı veya giriş bilgileri yanlış');
@@ -160,13 +162,13 @@ class _LoginFormState extends State<LoginForm> {
                         },
 
                         style: ButtonStyle(
-                          shape: MaterialStateProperty.all(
+                          shape: WidgetStateProperty.all(
                             RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(6.0),
                             ),
                           ),
                           backgroundColor:
-                              MaterialStateProperty.all(Colors.grey),
+                              WidgetStateProperty.all(Colors.grey),
                         ),
                         child: Text(
                           "Giriş Yap",
@@ -285,6 +287,11 @@ class _LoginFormState extends State<LoginForm> {
                           if (student != null) {
                             print(
                                 'Öğrenci girişi başarılı: ${student.name} ${student.surName} ${student.section}');
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const HomePage()),
+                            );
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
@@ -298,13 +305,13 @@ class _LoginFormState extends State<LoginForm> {
                       },
 
                       style: ButtonStyle(
-                        shape: MaterialStateProperty.all(
+                        shape: WidgetStateProperty.all(
                           RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(6.0),
                           ),
                         ),
                         backgroundColor:
-                            MaterialStateProperty.all(Colors.grey),
+                            WidgetStateProperty.all(Colors.grey),
                       ),
                       child: Text(
                         "Giriş Yap",

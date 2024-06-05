@@ -33,11 +33,11 @@ class Constants {
     //   "navigation": "ProjectsPage",
     //   "icon": "projects"
     // },
-    {
-      "title": "Ders Programı",
-      "navigation": "SyllabusPage",
-      "icon": "syllabus"
-    },
+    // {
+    //   "title": "Ders Programı",
+    //   "navigation": "SyllabusPage",
+    //   "icon": "syllabus"
+    // },
     {
       "title": "Duyurular",
       "navigation": "AnnouncementPage",
@@ -58,10 +58,10 @@ class Constants {
     //   "navigation": "RectorsMessage",
     //   "icon": "message"
     // },
-    {"title": "Ayarlar", "navigation": "Settings", "icon": "settings"},
+    // {"title": "Ayarlar", "navigation": "Settings", "icon": "settings"},
     {"title": "Çıkış Yap", "navigation": "/", "icon": "logout"},
   ];
-  
+
   var users = [
     {
       "name": "Mehmet Akif Küçükkaya",

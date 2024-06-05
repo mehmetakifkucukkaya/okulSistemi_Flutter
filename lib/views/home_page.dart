@@ -130,14 +130,18 @@ class _HomePageState extends State<HomePage> {
               title: "Notlar",
               route: "GradePage",
             ),
+            // const DrawerTile(
+            //   title: "Ders Programı",
+            //   route: "SyllabusPage",
+            // ),
             const DrawerTile(
-              title: "Ders Programı",
-              route: "SyllabusPage",
+              title: "Rektörün Mesajı",
+              route: "RectorsMessage",
             ),
-            const DrawerTile(
-              title: "Ayarlar",
-              route: "SettingsPage",
-            ),
+            // const DrawerTile(
+            //   title: "Ayarlar",
+            //   route: "SettingsPage",
+            // ),
             const DrawerTile(
               title: "Çıkış Yap",
               route: "SplashPage",

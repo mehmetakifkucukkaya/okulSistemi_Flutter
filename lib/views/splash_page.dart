@@ -112,7 +112,7 @@ class SplashPage extends StatelessWidget {
             ),
             const DrawerTile(
               title: "Kampüslerimiz",
-              route: "LoginPage",
+              route: "CampusesPage",
             ),
             const DrawerTile(
               title: "Ayarlar",

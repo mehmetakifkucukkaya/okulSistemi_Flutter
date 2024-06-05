@@ -1,11 +1,9 @@
-// ignore_for_file: library_private_types_in_public_api
-
 import 'package:flutter/material.dart';
 import '../models/course_model.dart';
 import '../utils/database_helper.dart';
 
 class CoursesPage extends StatefulWidget {
-  const CoursesPage({super.key});
+  const CoursesPage({Key? key}) : super(key: key);
 
   @override
   _CoursesPageState createState() => _CoursesPageState();
@@ -13,7 +11,7 @@ class CoursesPage extends StatefulWidget {
 
 class _CoursesPageState extends State<CoursesPage> {
   late Future<List<Course>> _coursesFuture;
-  late Map<int, int> _studentCountMap;
+  late Map<int, int>? _studentCountMap; // Null değere izin vermek için '?'
 
   @override
   void initState() {
@@ -23,8 +21,7 @@ class _CoursesPageState extends State<CoursesPage> {
   }
 
   Future<void> _loadStudentCounts() async {
-    final studentCountMap =
-        await DatabaseHelper.getStudentCountPerCourse();
+    final studentCountMap = await DatabaseHelper.getStudentCountPerCourse();
     setState(() {
       _studentCountMap = studentCountMap;
     });
@@ -52,14 +49,11 @@ class _CoursesPageState extends State<CoursesPage> {
               itemCount: courses.length,
               itemBuilder: (context, index) {
                 final course = courses[index];
-                final studentCount =
-                    _studentCountMap.containsKey(course.courseId)
-                        ? _studentCountMap[course.courseId]
-                        : 0;
+                final studentCount = _studentCountMap?[course.courseId] ?? 0;
                 return ListTile(
                   title: Text(course.courseName),
                   subtitle: Text(course.courseCode),
-                  trailing: Text('Öğrenci Sayısı: ${studentCount ?? 0}'),
+                  trailing: Text('Öğrenci Sayısı: $studentCount'),
                   onTap: () {
                     _showCourseDetails(context, course);
                   },
